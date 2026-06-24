@@ -3,46 +3,72 @@
 #include <string>
 #include <iostream>
 
+// Class definition
 class Food
 {
+public:
+    // Enumerations
+    enum FoodGroup
+    {
+        dairy,
+        fruit,
+        grain,
+        meat,
+        fat,
+        vegetable,
+    };
+    constexpr std::string_view getFoodGroupName(FoodGroup const food_group)
+    {
+        switch (food_group)
+        {
+        case dairy:      return "dairy";
+        case fruit:      return "fruit";
+        case grain:      return "grain";
+        case meat:       return "meat";
+        case fat:        return "fat";
+        case vegetable:  return "vegetable";
+        default:         return "undefined";
+        }
+    }
 private:
     std::string m_name {};
-    int m_food_group {};
-        // 1 = "Dairy"
-        // 2 = "Fruit"
-        // 3 = "Grain"
-        // 4 = "Meat"
-        // 5 = "Fat"
-        // 6 = "Vegetable"
+    FoodGroup m_food_group {};
     int m_shelf_life {}; // in days
-    bool m_refrigerated {};
 public:
     // Constructor
-    Food(std::string name, int food_group, int shelf_life, bool refrigerated);
+    Food(std::string name, FoodGroup food_group, int shelf_life);
 
     // Access member functions
     std::string_view getName() const { return m_name; }
-    int getFoodGroup() const { return m_food_group; }
+    FoodGroup getFoodGroup() const { return m_food_group; }
     int getShelfLife() const { return m_shelf_life; }
-    bool isRefrigerated() const { return m_refrigerated; }
 
     // Print member functions
     void printName() const;
+    void printFoodGroup() const;
+    void printShelfLife() const;
 };
 
 // Define trivial member functions
-
-inline Food::Food(std::string name, int food_group, int shelf_life, bool refrigerated)
+inline Food::Food(std::string name, FoodGroup food_group, int shelf_life)
     : m_name { name }
     , m_food_group{ food_group }
     , m_shelf_life { shelf_life }
-    , m_refrigerated { refrigerated }
 {
 }
 
 inline void Food::printName() const
 {
-    std::cout << "Food Name: " << m_name << "\n";
+    std::cout << "Name: " << m_name << ".\n";
 }
 
+// inline void Food::printFoodGroup() const
+// {
+//     std::cout << "Food Group: " << Food::getFoodGroupName(m_food_group) << ".\n";
+// }
+
+inline void Food::printShelfLife() const
+{
+    std::cout << "Shelf Life: " << m_shelf_life << " days.\n";
+}
 #endif
