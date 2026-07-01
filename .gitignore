@@ -69,5 +69,8 @@ vcpkg_installed/
 Testing/
 .cache/
 
+# Secrets
+auth/
+
 # VS code configs
 /.vscode
